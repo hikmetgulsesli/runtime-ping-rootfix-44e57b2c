@@ -1,0 +1,468 @@
+[
+  {
+    "screenId": "427c2f5d8b254f9b9b6ccb41aab1ccdb",
+    "title": "Record Editor - Runtime Ping Rootfix",
+    "componentName": "RecordEditorRuntimePingRootfix",
+    "file": "src/screens/RecordEditorRuntimePingRootfix.tsx",
+    "buttons": 5,
+    "inputs": 6,
+    "links": 5,
+    "actions": [
+      {
+        "id": "support-docs-1",
+        "kind": "button",
+        "label": "Support Docs",
+        "index": 0
+      },
+      {
+        "id": "cancel-2",
+        "kind": "button",
+        "label": "Cancel",
+        "index": 1
+      },
+      {
+        "id": "save-record-3",
+        "kind": "button",
+        "label": "Save Record",
+        "index": 2
+      },
+      {
+        "id": "cancel-4",
+        "kind": "button",
+        "label": "Cancel",
+        "index": 3
+      },
+      {
+        "id": "save-record-5",
+        "kind": "button",
+        "label": "Save Record",
+        "index": 4
+      },
+      {
+        "id": "record-operations-1",
+        "kind": "link",
+        "label": "Record Operations",
+        "href": "#",
+        "index": 0
+      },
+      {
+        "id": "pipeline-board-2",
+        "kind": "link",
+        "label": "Pipeline Board",
+        "href": "#",
+        "index": 1
+      },
+      {
+        "id": "insights-3",
+        "kind": "link",
+        "label": "Insights",
+        "href": "#",
+        "index": 2
+      },
+      {
+        "id": "settings-4",
+        "kind": "link",
+        "label": "Settings",
+        "href": "#",
+        "index": 3
+      },
+      {
+        "id": "system-logs-5",
+        "kind": "link",
+        "label": "System Logs",
+        "href": "#",
+        "index": 4
+      }
+    ]
+  },
+  {
+    "screenId": "8bb9b7a262ed416c80dd3f2deec91396",
+    "title": "Pipeline Board - Runtime Ping Rootfix",
+    "componentName": "PipelineBoardRuntimePingRootfix",
+    "file": "src/screens/PipelineBoardRuntimePingRootfix.tsx",
+    "buttons": 16,
+    "inputs": 2,
+    "links": 5,
+    "actions": [
+      {
+        "id": "support-docs-1",
+        "kind": "button",
+        "label": "Support Docs",
+        "index": 0
+      },
+      {
+        "id": "menu-2",
+        "kind": "button",
+        "label": "Menu",
+        "index": 1
+      },
+      {
+        "id": "notifications-3",
+        "kind": "button",
+        "label": "Notifications",
+        "index": 2
+      },
+      {
+        "id": "account-circle-4",
+        "kind": "button",
+        "label": "Account Circle",
+        "index": 3
+      },
+      {
+        "id": "create-record-5",
+        "kind": "button",
+        "label": "Create Record",
+        "index": 4
+      },
+      {
+        "id": "filter-6",
+        "kind": "button",
+        "label": "Filter",
+        "index": 5
+      },
+      {
+        "id": "sort-7",
+        "kind": "button",
+        "label": "Sort",
+        "index": 6
+      },
+      {
+        "id": "more-horiz-8",
+        "kind": "button",
+        "label": "More Horiz",
+        "index": 7
+      },
+      {
+        "id": "edit-9",
+        "kind": "button",
+        "label": "Edit",
+        "index": 8
+      },
+      {
+        "id": "more-horiz-10",
+        "kind": "button",
+        "label": "More Horiz",
+        "index": 9
+      },
+      {
+        "id": "edit-11",
+        "kind": "button",
+        "label": "Edit",
+        "index": 10
+      },
+      {
+        "id": "more-horiz-12",
+        "kind": "button",
+        "label": "More Horiz",
+        "index": 11
+      },
+      {
+        "id": "edit-13",
+        "kind": "button",
+        "label": "Edit",
+        "index": 12
+      },
+      {
+        "id": "more-horiz-14",
+        "kind": "button",
+        "label": "More Horiz",
+        "index": 13
+      },
+      {
+        "id": "edit-15",
+        "kind": "button",
+        "label": "Edit",
+        "index": 14
+      },
+      {
+        "id": "more-horiz-16",
+        "kind": "button",
+        "label": "More Horiz",
+        "index": 15
+      },
+      {
+        "id": "record-operations-1",
+        "kind": "link",
+        "label": "Record Operations",
+        "href": "#",
+        "index": 0
+      },
+      {
+        "id": "pipeline-board-2",
+        "kind": "link",
+        "label": "Pipeline Board",
+        "href": "#",
+        "index": 1
+      },
+      {
+        "id": "insights-3",
+        "kind": "link",
+        "label": "Insights",
+        "href": "#",
+        "index": 2
+      },
+      {
+        "id": "settings-4",
+        "kind": "link",
+        "label": "Settings",
+        "href": "#",
+        "index": 3
+      },
+      {
+        "id": "system-logs-5",
+        "kind": "link",
+        "label": "System Logs",
+        "href": "#",
+        "index": 4
+      }
+    ]
+  },
+  {
+    "screenId": "71c76017ce834f8e953c70b4a32e6579",
+    "title": "Insights - Runtime Ping Rootfix",
+    "componentName": "InsightsRuntimePingRootfix",
+    "file": "src/screens/InsightsRuntimePingRootfix.tsx",
+    "buttons": 10,
+    "inputs": 0,
+    "links": 5,
+    "actions": [
+      {
+        "id": "support-docs-1",
+        "kind": "button",
+        "label": "Support Docs",
+        "index": 0
+      },
+      {
+        "id": "menu-2",
+        "kind": "button",
+        "label": "Menu",
+        "index": 1
+      },
+      {
+        "id": "notifications-3",
+        "kind": "button",
+        "label": "notifications",
+        "index": 2
+      },
+      {
+        "id": "account-circle-4",
+        "kind": "button",
+        "label": "account_circle",
+        "index": 3
+      },
+      {
+        "id": "create-record-5",
+        "kind": "button",
+        "label": "Create Record",
+        "index": 4
+      },
+      {
+        "id": "filter-6",
+        "kind": "button",
+        "label": "Filter",
+        "index": 5
+      },
+      {
+        "id": "export-summary-7",
+        "kind": "button",
+        "label": "Export Summary",
+        "index": 6
+      },
+      {
+        "id": "view-all-8",
+        "kind": "button",
+        "label": "View All",
+        "index": 7
+      },
+      {
+        "id": "investigate-9",
+        "kind": "button",
+        "label": "Investigate",
+        "index": 8
+      },
+      {
+        "id": "schedule-now-10",
+        "kind": "button",
+        "label": "Schedule Now",
+        "index": 9
+      },
+      {
+        "id": "record-operations-1",
+        "kind": "link",
+        "label": "Record Operations",
+        "href": "#",
+        "index": 0
+      },
+      {
+        "id": "pipeline-board-2",
+        "kind": "link",
+        "label": "Pipeline Board",
+        "href": "#",
+        "index": 1
+      },
+      {
+        "id": "insights-3",
+        "kind": "link",
+        "label": "Insights",
+        "href": "#",
+        "index": 2
+      },
+      {
+        "id": "settings-4",
+        "kind": "link",
+        "label": "Settings",
+        "href": "#",
+        "index": 3
+      },
+      {
+        "id": "system-logs-5",
+        "kind": "link",
+        "label": "System Logs",
+        "href": "#",
+        "index": 4
+      }
+    ]
+  },
+  {
+    "screenId": "d785a68dfe16439e897c183503298107",
+    "title": "Record Operations - Runtime Ping Rootfix",
+    "componentName": "RecordOperationsRuntimePingRootfix",
+    "file": "src/screens/RecordOperationsRuntimePingRootfix.tsx",
+    "buttons": 16,
+    "inputs": 6,
+    "links": 5,
+    "actions": [
+      {
+        "id": "support-docs-1",
+        "kind": "button",
+        "label": "Support Docs",
+        "index": 0
+      },
+      {
+        "id": "notifications-2",
+        "kind": "button",
+        "label": "Notifications",
+        "index": 1
+      },
+      {
+        "id": "account-circle-3",
+        "kind": "button",
+        "label": "Account Circle",
+        "index": 2
+      },
+      {
+        "id": "create-record-4",
+        "kind": "button",
+        "label": "Create Record",
+        "index": 3
+      },
+      {
+        "id": "refresh-data-5",
+        "kind": "button",
+        "label": "Refresh Data",
+        "index": 4
+      },
+      {
+        "id": "status-all-6",
+        "kind": "button",
+        "label": "Status: All",
+        "index": 5
+      },
+      {
+        "id": "date-last-7-days-7",
+        "kind": "button",
+        "label": "Date: Last 7 Days",
+        "index": 6
+      },
+      {
+        "id": "chevron-left-8",
+        "kind": "button",
+        "label": "Chevron Left",
+        "index": 7
+      },
+      {
+        "id": "chevron-right-9",
+        "kind": "button",
+        "label": "Chevron Right",
+        "index": 8
+      },
+      {
+        "id": "edit-10",
+        "kind": "button",
+        "label": "Edit",
+        "index": 9
+      },
+      {
+        "id": "edit-11",
+        "kind": "button",
+        "label": "Edit",
+        "index": 10
+      },
+      {
+        "id": "edit-12",
+        "kind": "button",
+        "label": "Edit",
+        "index": 11
+      },
+      {
+        "id": "edit-13",
+        "kind": "button",
+        "label": "Edit",
+        "index": 12
+      },
+      {
+        "id": "close-14",
+        "kind": "button",
+        "label": "Close",
+        "index": 13
+      },
+      {
+        "id": "pause-15",
+        "kind": "button",
+        "label": "Pause",
+        "index": 14
+      },
+      {
+        "id": "edit-details-16",
+        "kind": "button",
+        "label": "Edit Details",
+        "index": 15
+      },
+      {
+        "id": "record-operations-1",
+        "kind": "link",
+        "label": "Record Operations",
+        "href": "#",
+        "index": 0
+      },
+      {
+        "id": "pipeline-board-2",
+        "kind": "link",
+        "label": "Pipeline Board",
+        "href": "#",
+        "index": 1
+      },
+      {
+        "id": "insights-3",
+        "kind": "link",
+        "label": "Insights",
+        "href": "#",
+        "index": 2
+      },
+      {
+        "id": "settings-4",
+        "kind": "link",
+        "label": "Settings",
+        "href": "#",
+        "index": 3
+      },
+      {
+        "id": "system-logs-5",
+        "kind": "link",
+        "label": "System Logs",
+        "href": "#",
+        "index": 4
+      }
+    ]
+  }
+]

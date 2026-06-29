@@ -30,6 +30,29 @@ export default function App() {
     registerAppApi();
   }, []);
 
+  useEffect(() => {
+    if (state.activeSurface !== 'record-editor') return;
+
+    const record = state.selectedRecord;
+    const nameEl = document.getElementById('recordName') as HTMLInputElement | null;
+    const targetEl = document.getElementById('endpointUrl') as HTMLInputElement | null;
+
+    if (nameEl) nameEl.value = record?.name ?? '';
+    if (targetEl) targetEl.value = record?.target ?? '';
+
+    if (record?.priority) {
+      const priorityEl = document.querySelector(
+        `input[name='priority'][value='${record.priority}']`,
+      ) as HTMLInputElement | null;
+      if (priorityEl) priorityEl.checked = true;
+    } else {
+      const defaultPriorityEl = document.querySelector(
+        "input[name='priority'][value='medium']",
+      ) as HTMLInputElement | null;
+      if (defaultPriorityEl) defaultPriorityEl.checked = true;
+    }
+  }, [state.activeSurface, state.selectedRecord]);
+
   const navActions = {
     'record-operations-1': () => navigateTo('record-operations'),
     'pipeline-board-2': () => navigateTo('pipeline-board'),
@@ -99,14 +122,20 @@ export default function App() {
   };
 
   const editorActions: Partial<
-    Record<RecordEditorRuntimePingRootfixActionId, () => void>
+    Record<RecordEditorRuntimePingRootfixActionId, (e?: any) => void>
   > = {
     ...navActions,
     'support-docs-1': () => {},
     'cancel-2': () => closeEditor(),
-    'save-record-3': () => saveRecord(),
+    'save-record-3': (e) => {
+      e?.preventDefault?.();
+      saveRecord();
+    },
     'cancel-4': () => closeEditor(),
-    'save-record-5': () => saveRecord(),
+    'save-record-5': (e) => {
+      e?.preventDefault?.();
+      saveRecord();
+    },
   };
 
   return (

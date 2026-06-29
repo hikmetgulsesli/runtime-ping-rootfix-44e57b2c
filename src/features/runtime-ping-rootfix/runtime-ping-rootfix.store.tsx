@@ -141,17 +141,33 @@ export function saveRecord(updates?: Partial<RuntimePingRecord>) {
   const current = state.selectedRecord;
   let records = state.records;
 
+  let finalUpdates = updates;
+  if (!finalUpdates && typeof document !== 'undefined') {
+    const nameEl = document.getElementById('recordName') as HTMLInputElement | null;
+    const targetEl = document.getElementById('endpointUrl') as HTMLInputElement | null;
+    const priorityEl = document.querySelector(
+      "input[name='priority']:checked",
+    ) as HTMLInputElement | null;
+    if (nameEl || targetEl || priorityEl) {
+      finalUpdates = {
+        name: nameEl?.value || undefined,
+        target: targetEl?.value || undefined,
+        priority: (priorityEl?.value as any) || undefined,
+      };
+    }
+  }
+
   if (current) {
     records = records.map((r) =>
-      r.id === current.id ? { ...r, ...updates, id: r.id } : r,
+      r.id === current.id ? { ...r, ...finalUpdates, id: r.id } : r,
     );
-  } else if (updates) {
+  } else if (finalUpdates) {
     const newRecord: RuntimePingRecord = {
       id: `rec-${Date.now()}`,
-      name: updates.name ?? 'New Ping Record',
-      target: updates.target ?? '0.0.0.0',
-      status: updates.status ?? 'open',
-      priority: updates.priority ?? 'medium',
+      name: finalUpdates.name ?? 'New Ping Record',
+      target: finalUpdates.target ?? '0.0.0.0',
+      status: finalUpdates.status ?? 'open',
+      priority: finalUpdates.priority ?? 'medium',
       lastPingAt: new Date().toISOString(),
     };
     records = [...records, newRecord];

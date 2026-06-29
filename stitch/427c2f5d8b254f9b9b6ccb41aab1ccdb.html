@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Record Editor - Runtime Ping Rootfix</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#5c647a",
+                        "primary-container": "#0066ff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#424656",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "background": "#f8f9ff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#6ffbbe",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c2c6d8",
+                        "secondary": "#565e74",
+                        "secondary-container": "#dae2fd",
+                        "surface-variant": "#d3e4fe",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#002113",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "surface-container-high": "#dce9ff",
+                        "inverse-primary": "#b3c5ff",
+                        "on-primary-container": "#f8f7ff",
+                        "outline": "#727687",
+                        "primary": "#0050cb",
+                        "on-surface": "#0b1c30",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "surface-container": "#e5eeff",
+                        "primary-fixed": "#dae1ff",
+                        "tertiary-container": "#008259",
+                        "on-secondary-fixed": "#131b2e",
+                        "surface-tint": "#0054d6",
+                        "on-primary-fixed": "#001849",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#0b1c30",
+                        "tertiary": "#006645",
+                        "on-tertiary-container": "#e1ffec",
+                        "secondary-fixed": "#dae2fd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "gutter": "16px",
+                        "base": "4px",
+                        "xl": "32px",
+                        "xs": "4px",
+                        "sidebar_width": "240px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "code-md": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-sm": ["Inter"],
+                        "label-xs": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "code-md": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-sm": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-xs": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-sm min-h-screen flex flex-col md:flex-row">
+<!-- TopNavBar (Mobile Only) -->
+<header class="md:hidden flex justify-between items-center w-full px-lg py-sm sticky top-0 z-50 bg-surface-container-lowest border-b border-outline-variant">
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">
+            Runtime Ping Rootfix
+        </div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform hover:bg-surface-container-low p-sm rounded-full" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform hover:bg-surface-container-low p-sm rounded-full" data-icon="account_circle">account_circle</span>
+</div>
+</header>
+<!-- SideNavBar (Web Only) -->
+<aside class="hidden md:flex flex-col h-screen fixed left-0 top-0 w-sidebar_width z-40 bg-inverse-surface">
+<div class="p-lg flex flex-col gap-sm border-b border-outline-variant/20">
+<div class="font-headline-sm text-headline-sm text-on-primary font-bold">Runtime Ping Rootfix</div>
+<div class="flex items-center gap-sm mt-md">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold font-body-sm">
+                    SO
+                </div>
+<div>
+<div class="font-body-sm text-body-sm text-on-primary font-bold">System Operator</div>
+<div class="font-label-xs text-label-xs text-on-surface-variant text-secondary-fixed-dim">Rootfix Admin</div>
+</div>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-md flex flex-col gap-base">
+<a class="flex items-center gap-sm px-md py-sm bg-primary-container text-on-primary-container rounded-lg mx-2 transition-all duration-150 cursor-pointer hover:bg-on-secondary-fixed-variant" href="#">
+<span class="material-symbols-outlined font-label-xs text-label-xs" data-icon="analytics">analytics</span>
+<span class="font-label-xs text-label-xs font-bold">Record Operations</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant mx-2 transition-all duration-150 cursor-pointer hover:bg-on-secondary-fixed-variant text-secondary-fixed-dim" href="#">
+<span class="material-symbols-outlined font-label-xs text-label-xs" data-icon="view_kanban">view_kanban</span>
+<span class="font-label-xs text-label-xs font-bold">Pipeline Board</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant mx-2 transition-all duration-150 cursor-pointer hover:bg-on-secondary-fixed-variant text-secondary-fixed-dim" href="#">
+<span class="material-symbols-outlined font-label-xs text-label-xs" data-icon="insights">insights</span>
+<span class="font-label-xs text-label-xs font-bold">Insights</span>
+</a>
+</nav>
+<div class="p-md flex flex-col gap-base border-t border-outline-variant/20">
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant mx-2 transition-all duration-150 cursor-pointer hover:bg-on-secondary-fixed-variant text-secondary-fixed-dim" href="#">
+<span class="material-symbols-outlined font-label-xs text-label-xs" data-icon="settings">settings</span>
+<span class="font-label-xs text-label-xs font-bold">Settings</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant mx-2 transition-all duration-150 cursor-pointer hover:bg-on-secondary-fixed-variant text-secondary-fixed-dim" href="#">
+<span class="material-symbols-outlined font-label-xs text-label-xs" data-icon="terminal">terminal</span>
+<span class="font-label-xs text-label-xs font-bold">System Logs</span>
+</a>
+<button class="mt-md w-full bg-surface-container-lowest text-primary font-label-xs text-label-xs font-bold py-sm px-md rounded border border-outline-variant hover:bg-surface-container-low transition-colors">
+                Support Docs
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-sidebar_width flex flex-col min-h-screen">
+<!-- Unsaved Changes Banner -->
+<div class="bg-surface-container-high border-b border-outline-variant px-lg py-sm flex items-center justify-between">
+<div class="flex items-center gap-sm text-on-surface font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-outline" data-icon="info">info</span>
+                You have unsaved changes
+            </div>
+<div class="flex gap-sm">
+<button class="px-md py-base text-on-surface border border-outline-variant rounded font-label-xs text-label-xs font-bold hover:bg-surface-container-low transition-colors bg-surface-container-lowest">Cancel</button>
+<button class="px-md py-base bg-primary text-on-primary rounded font-label-xs text-label-xs font-bold hover:bg-primary-fixed-variant transition-colors">Save Record</button>
+</div>
+</div>
+<div class="p-lg flex-1 flex justify-center">
+<div class="w-full max-w-3xl bg-surface-container-lowest border border-outline-variant rounded-lg p-lg shadow-[0_2px_4px_rgba(0,0,0,0.02)] h-fit">
+<div class="mb-lg border-b border-outline-variant pb-md">
+<h1 class="font-display-sm text-display-sm text-on-surface">Record Editor</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-base">Create or modify a system record.</p>
+</div>
+<form class="flex flex-col gap-lg">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Record Name -->
+<div class="flex flex-col gap-base">
+<label class="font-label-xs text-label-xs text-on-surface flex items-center gap-xs" for="recordName">
+                                Record Name <span class="text-error">*</span>
+</label>
+<input class="w-full border border-outline-variant rounded px-sm py-sm font-body-sm text-body-sm bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow" id="recordName" name="recordName" placeholder="e.g. Prod-DB-Ping" type="text"/>
+</div>
+<!-- Type -->
+<div class="flex flex-col gap-base">
+<label class="font-label-xs text-label-xs text-on-surface" for="recordType">Type</label>
+<select class="w-full border border-outline-variant rounded px-sm py-sm font-body-sm text-body-sm bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow appearance-none" id="recordType" name="recordType">
+<option value="http">HTTP Endpoint</option>
+<option value="tcp">TCP Socket</option>
+<option value="icmp">ICMP Echo</option>
+<option value="dns">DNS Resolution</option>
+</select>
+</div>
+</div>
+<!-- Endpoint URL -->
+<div class="flex flex-col gap-base">
+<label class="font-label-xs text-label-xs text-on-surface flex items-center gap-xs" for="endpointUrl">
+                            Endpoint URL <span class="text-error">*</span>
+</label>
+<div class="relative flex items-center">
+<span class="absolute left-sm material-symbols-outlined text-outline-variant" data-icon="link">link</span>
+<input class="w-full border border-error rounded pl-xl pr-sm py-sm font-code-md text-code-md bg-error-container/10 focus:ring-2 focus:ring-error focus:border-error outline-none transition-shadow text-on-surface" id="endpointUrl" name="endpointUrl" type="text" value="htps://api.rootfix.internal/v1/health"/>
+</div>
+<p class="font-body-sm text-body-sm text-error mt-xs flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" data-icon="error">error</span>
+                            Invalid URL format. Must start with http:// or https://
+                        </p>
+</div>
+<!-- Priority -->
+<div class="flex flex-col gap-base">
+<label class="font-label-xs text-label-xs text-on-surface">Priority</label>
+<div class="flex gap-lg">
+<label class="flex items-center gap-sm cursor-pointer">
+<input class="text-primary focus:ring-primary border-outline-variant" name="priority" type="radio" value="low"/>
+<span class="font-body-sm text-body-sm text-on-surface">Low</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer">
+<input checked="" class="text-primary focus:ring-primary border-outline-variant" name="priority" type="radio" value="medium"/>
+<span class="font-body-sm text-body-sm text-on-surface">Medium</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer">
+<input class="text-primary focus:ring-primary border-outline-variant" name="priority" type="radio" value="high"/>
+<span class="font-body-sm text-body-sm text-on-surface">High</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer">
+<input class="text-error focus:ring-error border-outline-variant" name="priority" type="radio" value="critical"/>
+<span class="font-body-sm text-body-sm text-error font-bold">Critical</span>
+</label>
+</div>
+</div>
+<!-- Description -->
+<div class="flex flex-col gap-base">
+<label class="font-label-xs text-label-xs text-on-surface" for="description">Description</label>
+<textarea class="w-full border border-outline-variant rounded px-sm py-sm font-body-sm text-body-sm bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow resize-y" id="description" name="description" placeholder="Brief context about this record..." rows="4"></textarea>
+</div>
+<!-- Form Actions (Bottom) -->
+<div class="mt-md pt-md border-t border-outline-variant flex justify-end gap-md">
+<button class="px-lg py-sm text-on-surface border border-outline-variant rounded font-label-xs text-label-xs font-bold hover:bg-surface-container-low transition-colors bg-surface-container-lowest" type="button">Cancel</button>
+<button class="px-lg py-sm bg-primary text-on-primary rounded font-label-xs text-label-xs font-bold hover:bg-primary-fixed-variant transition-colors flex items-center gap-xs" type="submit">
+<span class="material-symbols-outlined text-[16px]" data-icon="save">save</span>
+                            Save Record
+                        </button>
+</div>
+</form>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,38 @@
+[
+  {
+    "screenId": "427c2f5d8b254f9b9b6ccb41aab1ccdb",
+    "name": "Record Editor - Runtime Ping Rootfix",
+    "type": "form",
+    "description": "Record Editor - Runtime Ping Rootfix screen",
+    "surfaceIds": [
+      "SURF_RECORD_EDITOR"
+    ]
+  },
+  {
+    "screenId": "8bb9b7a262ed416c80dd3f2deec91396",
+    "name": "Pipeline Board - Runtime Ping Rootfix",
+    "type": "app-screen",
+    "description": "Pipeline Board - Runtime Ping Rootfix screen",
+    "surfaceIds": [
+      "SURF_PIPELINE_BOARD"
+    ]
+  },
+  {
+    "screenId": "71c76017ce834f8e953c70b4a32e6579",
+    "name": "Insights - Runtime Ping Rootfix",
+    "type": "app-screen",
+    "description": "Insights - Runtime Ping Rootfix screen",
+    "surfaceIds": [
+      "SURF_INSIGHTS"
+    ]
+  },
+  {
+    "screenId": "d785a68dfe16439e897c183503298107",
+    "name": "Record Operations - Runtime Ping Rootfix",
+    "type": "app-screen",
+    "description": "Record Operations - Runtime Ping Rootfix screen",
+    "surfaceIds": [
+      "SURF_RECORD_OPERATIONS"
+    ]
+  }
+]

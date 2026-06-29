@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>System Insights - Runtime Ping Rootfix</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#213145",
+                      "on-secondary-container": "#5c647a",
+                      "primary-container": "#0066ff",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#424656",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "surface": "#f8f9ff",
+                      "error-container": "#ffdad6",
+                      "background": "#f8f9ff",
+                      "on-primary": "#ffffff",
+                      "tertiary-fixed": "#6ffbbe",
+                      "error": "#ba1a1a",
+                      "inverse-on-surface": "#eaf1ff",
+                      "surface-bright": "#f8f9ff",
+                      "surface-container-low": "#eff4ff",
+                      "on-primary-fixed-variant": "#003fa4",
+                      "on-error": "#ffffff",
+                      "outline-variant": "#c2c6d8",
+                      "secondary": "#565e74",
+                      "secondary-container": "#dae2fd",
+                      "surface-variant": "#d3e4fe",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "surface-dim": "#cbdbf5",
+                      "tertiary-fixed-dim": "#4edea3",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-fixed": "#002113",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed-variant": "#3f465c",
+                      "surface-container-high": "#dce9ff",
+                      "inverse-primary": "#b3c5ff",
+                      "on-primary-container": "#f8f7ff",
+                      "outline": "#727687",
+                      "primary": "#0050cb",
+                      "on-surface": "#0b1c30",
+                      "on-tertiary-fixed-variant": "#005236",
+                      "surface-container": "#e5eeff",
+                      "primary-fixed": "#dae1ff",
+                      "tertiary-container": "#008259",
+                      "on-secondary-fixed": "#131b2e",
+                      "surface-tint": "#0054d6",
+                      "on-primary-fixed": "#001849",
+                      "on-secondary": "#ffffff",
+                      "on-background": "#0b1c30",
+                      "tertiary": "#006645",
+                      "on-tertiary-container": "#e1ffec",
+                      "secondary-fixed": "#dae2fd"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "sm": "8px",
+                      "lg": "24px",
+                      "md": "16px",
+                      "gutter": "16px",
+                      "base": "4px",
+                      "xl": "32px",
+                      "xs": "4px",
+                      "sidebar_width": "240px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "code-md": [
+                              "JetBrains Mono"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "display-sm": [
+                              "Inter"
+                      ],
+                      "label-xs": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "code-md": [
+                              "13px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-xs": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .sparkline {
+            stroke: #0050cb;
+            fill: none;
+            stroke-width: 2;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+        
+        .sparkline-area {
+            fill: url(#gradient-primary);
+        }
+
+        .sparkline-error {
+            stroke: #ba1a1a;
+            fill: none;
+            stroke-width: 2;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-sm antialiased h-screen flex overflow-hidden">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-screen fixed left-0 top-0 w-[240px] z-40 bg-inverse-surface dark:bg-surface-container-lowest text-primary-fixed dark:text-primary">
+<div class="px-md py-lg border-b border-on-surface-variant/20">
+<div class="flex items-center gap-sm mb-md">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-primary">System Operator</h2>
+<p class="font-label-xs text-label-xs text-secondary-fixed-dim">Rootfix Admin</p>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto py-md flex flex-col gap-xs">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-outline-variant mx-2 hover:bg-on-secondary-fixed-variant dark:hover:bg-surface-container-high transition-colors rounded-lg cursor-pointer transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-body-md text-body-md">Record Operations</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-outline-variant mx-2 hover:bg-on-secondary-fixed-variant dark:hover:bg-surface-container-high transition-colors rounded-lg cursor-pointer transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="view_kanban">view_kanban</span>
+<span class="font-body-md text-body-md">Pipeline Board</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm bg-primary-container text-on-primary-container rounded-lg mx-2 cursor-pointer transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-body-md text-body-md font-bold">Insights</span>
+</a>
+</div>
+<div class="p-md border-t border-on-surface-variant/20">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-outline-variant mx-2 hover:bg-on-secondary-fixed-variant dark:hover:bg-surface-container-high transition-colors rounded-lg cursor-pointer transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-outline-variant mx-2 hover:bg-on-secondary-fixed-variant dark:hover:bg-surface-container-high transition-colors rounded-lg cursor-pointer transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="font-body-md text-body-md">System Logs</span>
+</a>
+<button class="w-full mt-md bg-transparent border border-outline-variant text-on-primary py-xs px-sm rounded hover:bg-on-secondary-fixed-variant transition-colors font-label-xs text-label-xs flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">help</span> Support Docs
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-[240px] w-full min-w-0">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-lg py-sm sticky top-0 z-50 bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-on-surface-variant flat no shadows text-primary dark:text-primary-fixed-dim">
+<div class="flex items-center gap-sm">
+<!-- Mobile menu button -->
+<button class="md:hidden p-xs rounded hover:bg-surface-container-low transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-on-surface dark:text-inverse-on-surface">Runtime Ping Rootfix</h1>
+</div>
+<div class="flex-1 flex justify-start px-lg">
+<!-- Search bar omitted based on logic or minimal design needs, contextually implied it could be here -->
+</div>
+<div class="flex items-center gap-md">
+<button aria-label="notifications" class="p-xs rounded-full hover:bg-surface-container-low dark:hover:bg-on-secondary-fixed-variant transition-colors text-on-surface-variant cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button aria-label="account_circle" class="p-xs rounded-full hover:bg-surface-container-low dark:hover:bg-on-secondary-fixed-variant transition-colors text-on-surface-variant cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+<button class="bg-primary text-on-primary font-label-xs text-label-xs py-xs px-md rounded-DEFAULT hover:bg-surface-tint transition-colors cursor-pointer active:scale-95 transition-transform flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">add</span> Create Record
+                </button>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-y-auto p-lg bg-background">
+<!-- Page Header -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-lg gap-sm">
+<div>
+<h2 class="font-display-sm text-display-sm text-on-surface">System Insights</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Real-time performance and operational summary.</p>
+</div>
+<div class="flex items-center gap-sm">
+<button class="flex items-center gap-xs px-sm py-xs bg-surface border border-outline-variant rounded text-on-surface font-label-xs text-label-xs hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[16px]">filter_list</span> Filter
+                    </button>
+<button class="flex items-center gap-xs px-sm py-xs bg-surface border border-outline-variant rounded text-on-surface font-label-xs text-label-xs hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[16px]">download</span> Export Summary
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md">
+<!-- Top Metrics (Span full width, split into 4) -->
+<div class="md:col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Metric 1: Availability -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col justify-between h-32 hover:bg-surface-container-low transition-colors cursor-default">
+<div class="flex justify-between items-start">
+<span class="font-label-xs text-label-xs text-secondary uppercase tracking-wider">Availability</span>
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+</div>
+<div class="flex items-end justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface text-2xl">99.98%</span>
+<svg class="w-16 h-8" viewbox="0 0 100 30">
+<defs>
+<lineargradient id="gradient-primary" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#0050cb" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#0050cb" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path class="sparkline-area" d="M0 30 L0 15 L20 18 L40 10 L60 12 L80 5 L100 8 L100 30 Z"></path>
+<path class="sparkline" d="M0 15 L20 18 L40 10 L60 12 L80 5 L100 8"></path>
+</svg>
+</div>
+</div>
+<!-- Metric 2: Latency -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col justify-between h-32 hover:bg-surface-container-low transition-colors cursor-default">
+<div class="flex justify-between items-start">
+<span class="font-label-xs text-label-xs text-secondary uppercase tracking-wider">Avg Latency</span>
+<span class="material-symbols-outlined text-[16px] text-primary">speed</span>
+</div>
+<div class="flex items-end justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface text-2xl">42ms</span>
+<svg class="w-16 h-8" viewbox="0 0 100 30">
+<path class="sparkline-area" d="M0 30 L0 20 L20 15 L40 25 L60 18 L80 10 L100 12 L100 30 Z"></path>
+<path class="sparkline" d="M0 20 L20 15 L40 25 L60 18 L80 10 L100 12"></path>
+</svg>
+</div>
+</div>
+<!-- Metric 3: Throughput -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col justify-between h-32 hover:bg-surface-container-low transition-colors cursor-default">
+<div class="flex justify-between items-start">
+<span class="font-label-xs text-label-xs text-secondary uppercase tracking-wider">Throughput</span>
+<span class="material-symbols-outlined text-[16px] text-primary">swap_vert</span>
+</div>
+<div class="flex items-end justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface text-2xl">1.2k/s</span>
+<svg class="w-16 h-8" viewbox="0 0 100 30">
+<path class="sparkline-area" d="M0 30 L0 25 L20 22 L40 15 L60 10 L80 8 L100 5 L100 30 Z"></path>
+<path class="sparkline" d="M0 25 L20 22 L40 15 L60 10 L80 8 L100 5"></path>
+</svg>
+</div>
+</div>
+<!-- Metric 4: Error Rate -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col justify-between h-32 hover:bg-error-container/20 transition-colors cursor-default">
+<div class="flex justify-between items-start">
+<span class="font-label-xs text-label-xs text-secondary uppercase tracking-wider">Error Rate</span>
+<span class="material-symbols-outlined text-[16px] text-error">warning</span>
+</div>
+<div class="flex items-end justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface text-2xl">0.02%</span>
+<svg class="w-16 h-8" viewbox="0 0 100 30">
+<path class="sparkline-error" d="M0 28 L20 29 L40 28 L60 25 L80 20 L100 28"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Middle Row: Recent Activity & State Distribution -->
+<div class="md:col-span-8 bg-surface border border-outline-variant rounded-lg p-0 flex flex-col h-80">
+<div class="p-sm border-b border-outline-variant bg-surface-container-lowest rounded-t-lg flex justify-between items-center">
+<h3 class="font-label-xs text-label-xs text-on-surface uppercase tracking-wider">Recent Activity Timeline</h3>
+<button class="text-primary font-label-xs text-label-xs hover:underline">View All</button>
+</div>
+<div class="flex-1 overflow-y-auto p-md">
+<div class="relative border-l border-outline-variant ml-sm space-y-md">
+<!-- Timeline Item -->
+<div class="relative pl-md">
+<div class="absolute w-2 h-2 bg-tertiary rounded-full -left-[5px] top-1.5 ring-4 ring-surface"></div>
+<div class="flex justify-between items-start">
+<div>
+<p class="font-body-sm text-body-sm text-on-surface font-semibold">Ping Succeeded</p>
+<p class="font-code-md text-code-md text-on-surface-variant text-[11px] mt-xs">Node: us-east-1a | Latency: 12ms</p>
+</div>
+<span class="font-label-xs text-label-xs text-secondary">2m ago</span>
+</div>
+</div>
+<!-- Timeline Item -->
+<div class="relative pl-md">
+<div class="absolute w-2 h-2 bg-primary rounded-full -left-[5px] top-1.5 ring-4 ring-surface"></div>
+<div class="flex justify-between items-start">
+<div>
+<p class="font-body-sm text-body-sm text-on-surface font-semibold">Rootfix Applied</p>
+<p class="font-code-md text-code-md text-on-surface-variant text-[11px] mt-xs">Patch: v2.1.4 | Target: db-cluster-02</p>
+</div>
+<span class="font-label-xs text-label-xs text-secondary">15m ago</span>
+</div>
+</div>
+<!-- Timeline Item -->
+<div class="relative pl-md">
+<div class="absolute w-2 h-2 bg-error rounded-full -left-[5px] top-1.5 ring-4 ring-surface"></div>
+<div class="flex justify-between items-start">
+<div>
+<p class="font-body-sm text-body-sm text-error font-semibold">Verification Failed</p>
+<p class="font-code-md text-code-md text-on-surface-variant text-[11px] mt-xs">Record ID: REC-9921 | Status: Timeout</p>
+</div>
+<span class="font-label-xs text-label-xs text-secondary">1h ago</span>
+</div>
+</div>
+<!-- Timeline Item -->
+<div class="relative pl-md">
+<div class="absolute w-2 h-2 bg-surface-variant border border-outline rounded-full -left-[5px] top-1.5 ring-4 ring-surface"></div>
+<div class="flex justify-between items-start">
+<div>
+<p class="font-body-sm text-body-sm text-on-surface font-semibold">System Backup Completed</p>
+<p class="font-code-md text-code-md text-on-surface-variant text-[11px] mt-xs">Size: 4.2TB | Duration: 45m</p>
+</div>
+<span class="font-label-xs text-label-xs text-secondary">3h ago</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-md h-80">
+<!-- State Distribution -->
+<div class="flex-1 bg-surface border border-outline-variant rounded-lg p-0 flex flex-col">
+<div class="p-sm border-b border-outline-variant bg-surface-container-lowest rounded-t-lg">
+<h3 class="font-label-xs text-label-xs text-on-surface uppercase tracking-wider">Record Status</h3>
+</div>
+<div class="flex-1 flex flex-col justify-center p-md gap-sm">
+<!-- Simple Bar Chart -->
+<div class="w-full">
+<div class="flex justify-between mb-xs">
+<span class="font-label-xs text-label-xs text-on-surface">Active</span>
+<span class="font-label-xs text-label-xs text-secondary">65%</span>
+</div>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 65%"></div>
+</div>
+</div>
+<div class="w-full mt-sm">
+<div class="flex justify-between mb-xs">
+<span class="font-label-xs text-label-xs text-on-surface">Pending Verification</span>
+<span class="font-label-xs text-label-xs text-secondary">25%</span>
+</div>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden">
+<div class="bg-outline-variant h-full" style="width: 25%"></div>
+</div>
+</div>
+<div class="w-full mt-sm">
+<div class="flex justify-between mb-xs">
+<span class="font-label-xs text-label-xs text-on-surface">Failed</span>
+<span class="font-label-xs text-label-xs text-error">10%</span>
+</div>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden">
+<div class="bg-error h-full" style="width: 10%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Actionable Hints -->
+<div class="md:col-span-12 bg-surface-container-lowest border border-outline-variant rounded-lg p-md mt-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">lightbulb</span> Next Steps
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-sm">
+<div class="bg-error-container/30 border border-error/30 p-sm rounded flex items-start gap-sm">
+<span class="material-symbols-outlined text-error mt-0.5 text-[18px]">error</span>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface font-semibold">3 records failing in Verification</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Review connection logs for nodes in us-west-2.</p>
+<button class="mt-sm font-label-xs text-label-xs text-error hover:underline">Investigate</button>
+</div>
+</div>
+<div class="bg-surface-container p-sm rounded flex items-start gap-sm border border-outline-variant/50">
+<span class="material-symbols-outlined text-primary mt-0.5 text-[18px]">update</span>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface font-semibold">Routine maintenance required</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Database cluster indices need rebuilding.</p>
+<button class="mt-sm font-label-xs text-label-xs text-primary hover:underline">Schedule Now</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

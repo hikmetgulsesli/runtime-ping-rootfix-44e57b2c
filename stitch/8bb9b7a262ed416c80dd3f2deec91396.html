@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pipeline Board - Runtime Ping Rootfix</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#213145",
+                      "on-secondary-container": "#5c647a",
+                      "primary-container": "#0066ff",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#424656",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "surface": "#f8f9ff",
+                      "error-container": "#ffdad6",
+                      "background": "#f8f9ff",
+                      "on-primary": "#ffffff",
+                      "tertiary-fixed": "#6ffbbe",
+                      "error": "#ba1a1a",
+                      "inverse-on-surface": "#eaf1ff",
+                      "surface-bright": "#f8f9ff",
+                      "surface-container-low": "#eff4ff",
+                      "on-primary-fixed-variant": "#003fa4",
+                      "on-error": "#ffffff",
+                      "outline-variant": "#c2c6d8",
+                      "secondary": "#565e74",
+                      "secondary-container": "#dae2fd",
+                      "surface-variant": "#d3e4fe",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "surface-dim": "#cbdbf5",
+                      "tertiary-fixed-dim": "#4edea3",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-fixed": "#002113",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed-variant": "#3f465c",
+                      "surface-container-high": "#dce9ff",
+                      "inverse-primary": "#b3c5ff",
+                      "on-primary-container": "#f8f7ff",
+                      "outline": "#727687",
+                      "primary": "#0050cb",
+                      "on-surface": "#0b1c30",
+                      "on-tertiary-fixed-variant": "#005236",
+                      "surface-container": "#e5eeff",
+                      "primary-fixed": "#dae1ff",
+                      "tertiary-container": "#008259",
+                      "on-secondary-fixed": "#131b2e",
+                      "surface-tint": "#0054d6",
+                      "on-primary-fixed": "#001849",
+                      "on-secondary": "#ffffff",
+                      "on-background": "#0b1c30",
+                      "tertiary": "#006645",
+                      "on-tertiary-container": "#e1ffec",
+                      "secondary-fixed": "#dae2fd"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "sm": "8px",
+                      "lg": "24px",
+                      "md": "16px",
+                      "gutter": "16px",
+                      "base": "4px",
+                      "xl": "32px",
+                      "xs": "4px",
+                      "sidebar_width": "240px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "code-md": [
+                              "JetBrains Mono"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "display-sm": [
+                              "Inter"
+                      ],
+                      "label-xs": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "code-md": [
+                              "13px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-xs": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .kanban-scroll::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+        .kanban-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .kanban-scroll::-webkit-scrollbar-thumb {
+            background-color: #c2c6d8;
+            border-radius: 4px;
+        }
+        .dark .kanban-scroll::-webkit-scrollbar-thumb {
+            background-color: #424656;
+        }
+        
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        .material-symbols-outlined.filled {
+          font-variation-settings:
+          'FILL' 1,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface dark:bg-inverse-surface dark:text-inverse-on-surface font-body-sm flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-screen fixed left-0 top-0 w-[240px] z-40 bg-inverse-surface dark:bg-surface-container-lowest border-r border-outline-variant dark:border-on-surface-variant flex-shrink-0">
+<div class="p-md flex flex-col gap-sm">
+<div class="flex items-center gap-sm mb-lg">
+<img class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A small, professional corporate avatar of a system operator. Close up face, neutral lighting, modern tech office background. The avatar is circular and fits perfectly as a profile picture in a dense UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKbFYqhEhGom49IlH5lwvluj3oipDXwouNS9QwptvX2oXWhd140JUZUldJm1lCRi9C9eSZAk4_bwR8Xj8upggfNyRH-orwYa52OeTHQ6BfxpyhSMzz2WBMfX5bw4qkSCcYAbhbcP-GdFUo4WNHFJLPijqxygftyrsYnqUlXLLoGk6Oc9zxgZuLttI2kqdUnxjkZg2-OtG4DCKkRcr9pSmjff_l0aVy27UO7OnOfVCCAWIu0CwfuULrE_Ro8ibl0tsepPr5OAflgT4"/>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-primary">System Operator</h2>
+<p class="font-label-xs text-label-xs text-on-surface-variant dark:text-outline-variant">Rootfix Admin</p>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary font-body-sm text-body-sm py-sm px-md rounded flex items-center justify-center gap-xs hover:bg-surface-tint transition-colors">
+<span class="material-symbols-outlined text-[16px]">support_agent</span>
+                Support Docs
+            </button>
+</div>
+<nav class="flex-1 overflow-y-auto py-sm px-xs space-y-xs">
+<a class="flex items-center gap-sm py-sm px-md mx-2 rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-on-secondary-fixed-variant dark:hover:bg-surface-container-high transition-colors cursor-pointer transition-all duration-150 font-label-xs text-label-xs" href="#">
+<span class="material-symbols-outlined text-[18px]">analytics</span>
+<span>Record Operations</span>
+</a>
+<a class="flex items-center gap-sm py-sm px-md mx-2 rounded-lg bg-primary-container text-on-primary-container transition-colors cursor-pointer transition-all duration-150 font-label-xs text-label-xs" href="#">
+<span class="material-symbols-outlined text-[18px]">view_kanban</span>
+<span>Pipeline Board</span>
+</a>
+<a class="flex items-center gap-sm py-sm px-md mx-2 rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-on-secondary-fixed-variant dark:hover:bg-surface-container-high transition-colors cursor-pointer transition-all duration-150 font-label-xs text-label-xs" href="#">
+<span class="material-symbols-outlined text-[18px]">insights</span>
+<span>Insights</span>
+</a>
+</nav>
+<div class="p-xs mt-auto space-y-xs border-t border-outline-variant dark:border-on-surface-variant py-sm">
+<a class="flex items-center gap-sm py-sm px-md mx-2 rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-on-secondary-fixed-variant dark:hover:bg-surface-container-high transition-colors cursor-pointer transition-all duration-150 font-label-xs text-label-xs" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-sm py-sm px-md mx-2 rounded-lg text-on-surface-variant dark:text-outline-variant hover:bg-on-secondary-fixed-variant dark:hover:bg-surface-container-high transition-colors cursor-pointer transition-all duration-150 font-label-xs text-label-xs" href="#">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span>System Logs</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-[240px] w-full min-w-0 bg-surface dark:bg-inverse-surface">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-lg py-sm sticky top-0 z-50 bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-on-surface-variant">
+<div class="flex items-center gap-md">
+<!-- Mobile Menu Button -->
+<button class="md:hidden text-on-surface-variant hover:bg-surface-container-low p-xs rounded">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface dark:text-inverse-on-surface">Runtime Ping Rootfix</div>
+<div class="hidden md:flex relative ml-lg">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline text-[16px]">search</span>
+<input class="pl-xl pr-sm py-xs w-64 bg-surface dark:bg-surface-container-lowest border border-outline-variant dark:border-outline rounded font-body-sm text-body-sm text-on-surface dark:text-on-primary-container focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary placeholder:text-outline transition-shadow" placeholder="Search board..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-xs text-on-surface-variant dark:text-outline hover:bg-surface-container-low dark:hover:bg-on-secondary-fixed-variant transition-colors rounded cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-xs text-on-surface-variant dark:text-outline hover:bg-surface-container-low dark:hover:bg-on-secondary-fixed-variant transition-colors rounded cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+</button>
+<button class="ml-sm bg-primary text-on-primary font-label-xs text-label-xs py-xs px-sm rounded flex items-center gap-xs hover:bg-surface-tint transition-colors border border-transparent cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                    Create Record
+                </button>
+</div>
+</header>
+<!-- Board Toolbar -->
+<div class="px-lg py-sm border-b border-outline-variant dark:border-on-surface-variant bg-surface-bright dark:bg-inverse-surface flex justify-between items-center flex-shrink-0">
+<div class="flex items-center gap-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface dark:text-on-primary-container">Pipeline Board</span>
+<span class="px-2 py-[2px] bg-surface-container-high dark:bg-surface-container rounded-full text-on-surface-variant dark:text-on-surface font-label-xs text-label-xs">14 Records</span>
+</div>
+<!-- Mobile Search (Visible only on small screens) -->
+<div class="md:hidden flex relative w-full max-w-xs ml-sm">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline text-[16px]">search</span>
+<input class="pl-xl pr-sm py-xs w-full bg-surface dark:bg-surface-container-lowest border border-outline-variant dark:border-outline rounded font-body-sm text-body-sm text-on-surface dark:text-on-primary-container focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary placeholder:text-outline transition-shadow" placeholder="Search board..." type="text"/>
+</div>
+<div class="hidden md:flex items-center gap-sm">
+<button class="flex items-center gap-xs text-on-surface-variant dark:text-outline text-label-xs font-label-xs px-sm py-xs hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded transition-colors border border-outline-variant dark:border-outline">
+<span class="material-symbols-outlined text-[16px]">filter_list</span>
+                    Filter
+                 </button>
+<button class="flex items-center gap-xs text-on-surface-variant dark:text-outline text-label-xs font-label-xs px-sm py-xs hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded transition-colors border border-outline-variant dark:border-outline">
+<span class="material-symbols-outlined text-[16px]">sort</span>
+                    Sort
+                 </button>
+</div>
+</div>
+<!-- Kanban Board Area -->
+<div class="flex-1 overflow-x-auto overflow-y-hidden kanban-scroll p-md bg-surface-container-lowest dark:bg-[#1a2636]">
+<div class="flex gap-md h-full min-w-max pb-sm">
+<!-- Column: Backlog -->
+<div class="w-[300px] flex flex-col h-full bg-surface-bright dark:bg-inverse-surface rounded-lg border border-outline-variant dark:border-on-surface-variant flex-shrink-0">
+<div class="p-sm flex justify-between items-center border-b border-outline-variant dark:border-on-surface-variant bg-surface-container-lowest dark:bg-surface-container-lowest rounded-t-lg">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<h3 class="font-label-xs text-label-xs text-on-surface dark:text-on-primary-container uppercase tracking-wider">Backlog</h3>
+<span class="ml-xs text-outline dark:text-outline-variant font-code-md text-code-md">3</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface dark:hover:text-on-primary-container"><span class="material-symbols-outlined text-[16px]">more_horiz</span></button>
+</div>
+<div class="flex-1 overflow-y-auto p-xs space-y-xs kanban-scroll">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest dark:bg-surface-container-lowest p-sm rounded border border-outline-variant dark:border-outline cursor-grab hover:shadow-sm hover:border-outline transition-all group relative">
+<div class="flex justify-between items-start mb-xs">
+<span class="font-code-md text-code-md text-primary dark:text-primary-fixed-dim">REC-8902</span>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 bg-surface-container-lowest dark:bg-surface-container-lowest rounded shadow-sm border border-outline-variant dark:border-outline absolute top-sm right-sm z-10">
+<button class="p-1 hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded text-on-surface-variant" title="Edit"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+</div>
+</div>
+<h4 class="font-body-md text-body-md font-semibold text-on-surface dark:text-on-primary-container mb-sm leading-tight">Implement rate limiting middleware</h4>
+<div class="flex items-center justify-between mt-sm pt-xs border-t border-outline-variant dark:border-on-surface-variant">
+<div class="flex items-center gap-xs">
+<img class="w-5 h-5 rounded-full object-cover border border-outline-variant" data-alt="Small circular avatar of a software engineer, male, glasses, professional studio lighting, dark background, suitable for a dense data grid." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANqF3Fxm0lXXIXBmOOlE7KkUlnbhyA6iVqAQdh5BDD3fI61nWJSL3-M2x90std6Sa24ov1TVjgMXmRMEPIZ1dbLrGD3hrUINVojg_5soYjFBOJPD17UOAyvHGHOH5Sh6BydF5CEqypW8v_McrkaosBfHs1rJfOHS8XjJOyj58uPjYJ5Mp0UKzpKWRYvuGptxy75uxBEexs7AO6CLz3AFAGxpNllhLaJ4k0u08gygVbEvbYUy9hKE0a2l4bjt0CM4ToUqsMqOPjXgc"/>
+<span class="font-label-xs text-label-xs text-on-surface-variant dark:text-outline">12h ago</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-transparent border-none text-label-xs font-label-xs text-on-surface-variant dark:text-outline py-0 pl-0 pr-4 focus:ring-0 cursor-pointer">
+<option selected="" value="backlog">Backlog</option>
+<option value="processing">Processing</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 text-[12px] pointer-events-none text-on-surface-variant">arrow_drop_down</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Processing -->
+<div class="w-[300px] flex flex-col h-full bg-surface-bright dark:bg-inverse-surface rounded-lg border border-outline-variant dark:border-on-surface-variant flex-shrink-0">
+<div class="p-sm flex justify-between items-center border-b border-outline-variant dark:border-on-surface-variant bg-surface-container-lowest dark:bg-surface-container-lowest rounded-t-lg">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<h3 class="font-label-xs text-label-xs text-on-surface dark:text-on-primary-container uppercase tracking-wider">Processing</h3>
+<span class="ml-xs text-outline dark:text-outline-variant font-code-md text-code-md">2</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[16px]">more_horiz</span></button>
+</div>
+<div class="flex-1 overflow-y-auto p-xs space-y-xs kanban-scroll">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest dark:bg-surface-container-lowest p-sm rounded border border-outline-variant dark:border-outline cursor-grab hover:shadow-sm hover:border-outline transition-all group relative">
+<div class="flex justify-between items-start mb-xs">
+<span class="font-code-md text-code-md text-primary dark:text-primary-fixed-dim">REC-8895</span>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 bg-surface-container-lowest dark:bg-surface-container-lowest rounded shadow-sm border border-outline-variant dark:border-outline absolute top-sm right-sm z-10">
+<button class="p-1 hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded text-on-surface-variant" title="Edit"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+</div>
+</div>
+<h4 class="font-body-md text-body-md font-semibold text-on-surface dark:text-on-primary-container mb-sm leading-tight">Database migration script optimization</h4>
+<div class="flex items-center justify-between mt-sm pt-xs border-t border-outline-variant dark:border-on-surface-variant">
+<div class="flex items-center gap-xs">
+<img class="w-5 h-5 rounded-full object-cover border border-outline-variant" data-alt="Small circular avatar of a female data scientist, neutral expression, soft lighting, abstract blue background, suitable for a dense data grid." src="https://lh3.googleusercontent.com/aida-public/AB6AXuClL2d_b7C7g9SUmBIpoEvH7APWq2KwrlJt9XKO6TekuY4VZnehFOAyLEdo_Jogm7lcEMU_74hG1VRWh5B0J6AuFasIu4KM9rFxNl9F6sSGIJy11rRcbkS8YuXuaDdNuOtDFsqGBpm3JfsGc6DaSEiBTYerWSQKQhwWhJpFQe8XSxkJlyxKioN_T61xJUxOO7ct3mBZnHNR5Nav0Bvvfzp7s0ONtqbJNhF0xoqZNG3epQplVWXGl6Mjkccbcy67ClyKvDGlLrTNPEI"/>
+<span class="font-label-xs text-label-xs text-on-surface-variant dark:text-outline">2h ago</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-transparent border-none text-label-xs font-label-xs text-primary dark:text-primary-fixed-dim py-0 pl-0 pr-4 focus:ring-0 cursor-pointer">
+<option selected="" value="processing">Processing</option>
+<option value="verification">Verification</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 text-[12px] pointer-events-none text-primary">arrow_drop_down</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Verification -->
+<div class="w-[300px] flex flex-col h-full bg-surface-bright dark:bg-inverse-surface rounded-lg border border-outline-variant dark:border-on-surface-variant flex-shrink-0">
+<div class="p-sm flex justify-between items-center border-b border-outline-variant dark:border-on-surface-variant bg-surface-container-lowest dark:bg-surface-container-lowest rounded-t-lg">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed"></span>
+<h3 class="font-label-xs text-label-xs text-on-surface dark:text-on-primary-container uppercase tracking-wider">Verification</h3>
+<span class="ml-xs text-outline dark:text-outline-variant font-code-md text-code-md">1</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[16px]">more_horiz</span></button>
+</div>
+<div class="flex-1 overflow-y-auto p-xs space-y-xs kanban-scroll">
+<!-- Card 1 (Blocked) -->
+<div class="bg-surface-container-lowest dark:bg-surface-container-lowest p-sm rounded border-2 border-error-container dark:border-error-container/50 cursor-grab hover:shadow-sm transition-all group relative">
+<div class="flex justify-between items-start mb-xs">
+<span class="font-code-md text-code-md text-primary dark:text-primary-fixed-dim">REC-8888</span>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 bg-surface-container-lowest dark:bg-surface-container-lowest rounded shadow-sm border border-outline-variant dark:border-outline absolute top-sm right-sm z-10">
+<button class="p-1 hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded text-on-surface-variant" title="Edit"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+</div>
+</div>
+<h4 class="font-body-md text-body-md font-semibold text-on-surface dark:text-on-primary-container mb-sm leading-tight">Update API documentation for v2.1 endpoints</h4>
+<div class="flex items-center gap-xs mb-sm bg-error-container/20 text-on-error-container text-xs px-2 py-1 rounded w-fit border border-error/20">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+<span class="font-label-xs">Blocked: Missing dependencies</span>
+</div>
+<div class="flex items-center justify-between mt-sm pt-xs border-t border-outline-variant dark:border-on-surface-variant">
+<div class="flex items-center gap-xs">
+<div class="w-5 h-5 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-label-xs text-[9px] border border-outline-variant">JD</div>
+<span class="font-label-xs text-label-xs text-error">Stuck 18h</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-transparent border-none text-label-xs font-label-xs text-secondary dark:text-secondary-fixed-dim py-0 pl-0 pr-4 focus:ring-0 cursor-pointer">
+<option selected="" value="verification">Verification</option>
+<option value="failure">Failure</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 text-[12px] pointer-events-none text-secondary">arrow_drop_down</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Failure -->
+<div class="w-[300px] flex flex-col h-full bg-surface-bright dark:bg-inverse-surface rounded-lg border border-error-container/30 dark:border-error-container/20 flex-shrink-0 bg-error-container/5 dark:bg-error-container/5">
+<div class="p-sm flex justify-between items-center border-b border-error-container/30 dark:border-error-container/20 bg-surface-container-lowest dark:bg-surface-container-lowest rounded-t-lg">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<h3 class="font-label-xs text-label-xs text-error uppercase tracking-wider">Failure</h3>
+<span class="ml-xs text-error font-code-md text-code-md">1</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[16px]">more_horiz</span></button>
+</div>
+<div class="flex-1 overflow-y-auto p-xs space-y-xs kanban-scroll">
+<!-- Card 1 (Failed) -->
+<div class="bg-surface-container-lowest dark:bg-surface-container-lowest p-sm rounded border border-error/50 cursor-grab hover:shadow-sm transition-all group relative">
+<div class="flex justify-between items-start mb-xs">
+<span class="font-code-md text-code-md text-error">REC-8870</span>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 bg-surface-container-lowest dark:bg-surface-container-lowest rounded shadow-sm border border-outline-variant dark:border-outline absolute top-sm right-sm z-10">
+<button class="p-1 hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded text-on-surface-variant" title="Edit"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+</div>
+</div>
+<h4 class="font-body-md text-body-md font-semibold text-on-surface dark:text-on-primary-container mb-sm leading-tight">Resolve memory leak in worker node #4</h4>
+<div class="flex items-center justify-between mt-sm pt-xs border-t border-outline-variant dark:border-on-surface-variant">
+<div class="flex items-center gap-xs">
+<div class="w-5 h-5 rounded-full bg-surface-variant flex items-center justify-center text-on-surface font-label-xs text-[9px] border border-outline-variant">SYS</div>
+<span class="font-label-xs text-label-xs text-error">2d ago</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-transparent border-none text-label-xs font-label-xs text-error py-0 pl-0 pr-4 focus:ring-0 cursor-pointer">
+<option selected="" value="failure">Failure</option>
+<option value="processing">Restart</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 text-[12px] pointer-events-none text-error">arrow_drop_down</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Deployed -->
+<div class="w-[300px] flex flex-col h-full bg-surface-bright dark:bg-inverse-surface rounded-lg border border-outline-variant dark:border-on-surface-variant flex-shrink-0 opacity-80">
+<div class="p-sm flex justify-between items-center border-b border-outline-variant dark:border-on-surface-variant bg-surface-container-lowest dark:bg-surface-container-lowest rounded-t-lg">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<h3 class="font-label-xs text-label-xs text-on-surface dark:text-on-primary-container uppercase tracking-wider">Deployed</h3>
+<span class="ml-xs text-outline dark:text-outline-variant font-code-md text-code-md">7</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[16px]">more_horiz</span></button>
+</div>
+<div class="flex-1 overflow-y-auto p-xs space-y-xs kanban-scroll">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest dark:bg-surface-container-lowest p-sm rounded border border-outline-variant dark:border-outline cursor-default hover:border-outline transition-all group relative opacity-70">
+<div class="flex justify-between items-start mb-xs">
+<span class="font-code-md text-code-md text-tertiary">REC-8865</span>
+<span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
+</div>
+<h4 class="font-body-md text-body-md text-on-surface dark:text-on-primary-container mb-sm leading-tight line-through decoration-outline">Patch security vulnerability CVE-2023-XXXX</h4>
+<div class="flex items-center justify-between mt-sm pt-xs border-t border-outline-variant dark:border-on-surface-variant">
+<div class="flex items-center gap-xs">
+<img class="w-5 h-5 rounded-full object-cover border border-outline-variant grayscale" data-alt="Small circular avatar of a security engineer, professional studio lighting, dark background, suitable for a dense data grid." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5kIpuTfUo9FUwlAbRidmf_Zh7e-rGnFZenhYjVOWUAqKb-nIeaGBNxdr5atqnWIzyszo2NPpcwv9h9WVZ4_tqGK0qcA_PT_qWZiF05j5_8ai4XIgXc-sL6jhrkhyP1kEkKBkK7o1M9JgPaQ094hQ4BIg0q6Te_goWGctsV0As89lJNxRbL73LPx6qfKqIK-7fEXtsSSlpMlDasfXK8OdQUW2OkoDCXiXdqZM7WHNJBsi2giKXOjjOcAMZ1WKjJoY5JJxP5WuHk3I"/>
+<span class="font-label-xs text-label-xs text-outline">3d ago</span>
+</div>
+<span class="text-label-xs font-label-xs text-tertiary">Done</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

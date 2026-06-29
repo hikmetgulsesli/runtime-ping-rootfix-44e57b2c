@@ -161,13 +161,13 @@ export function saveRecord(updates?: Partial<RuntimePingRecord>) {
     records = records.map((r) =>
       r.id === current.id ? { ...r, ...finalUpdates, id: r.id } : r,
     );
-  } else if (finalUpdates) {
+  } else {
     const newRecord: RuntimePingRecord = {
       id: `rec-${Date.now()}`,
-      name: finalUpdates.name ?? 'New Ping Record',
-      target: finalUpdates.target ?? '0.0.0.0',
-      status: finalUpdates.status ?? 'open',
-      priority: finalUpdates.priority ?? 'medium',
+      name: finalUpdates?.name ?? 'New Ping Record',
+      target: finalUpdates?.target ?? '0.0.0.0',
+      status: finalUpdates?.status ?? 'open',
+      priority: finalUpdates?.priority ?? 'medium',
       lastPingAt: new Date().toISOString(),
     };
     records = [...records, newRecord];

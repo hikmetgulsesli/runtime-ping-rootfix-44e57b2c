@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 import {
   bootstrap,
-  closeEditor,
   getState,
   navigateTo,
-  openEditor,
-  refreshData,
-  saveRecord,
   useRuntimePingStore,
 } from './features/runtime-ping-rootfix/runtime-ping-rootfix.store';
+import { actCancelEdit } from './features/surf-record-editor/act_cancel_edit';
+import { actSaveRecord } from './features/surf-record-editor/act_save_record';
+import { actCreateRecord } from './features/surf-record-operations/act_create_record';
+import { actRetryLoad } from './features/surf-record-operations/act_retry_load';
+import { actSelectRecord } from './features/surf-record-operations/act_select_record';
 import { registerAppApi } from './test/bridge';
 import {
   InsightsRuntimePingRootfix,
@@ -69,19 +70,20 @@ export default function App() {
     'support-docs-1': () => {},
     'notifications-2': () => {},
     'account-circle-3': () => {},
-    'create-record-4': () => openEditor(),
-    'refresh-data-5': () => refreshData(),
+    'create-record-4': () => actCreateRecord(),
+    'refresh-data-5': () => actRetryLoad(),
     'status-all-6': () => {},
     'date-last-7-days-7': () => {},
     'chevron-left-8': () => {},
     'chevron-right-9': () => {},
-    'edit-10': () => openEditor(getState().records[0]?.id),
-    'edit-11': () => openEditor(getState().records[1]?.id),
-    'edit-12': () => openEditor(getState().records[2]?.id),
-    'edit-13': () => openEditor(getState().records[3]?.id),
-    'close-14': () => closeEditor(),
+    'edit-10': () => actSelectRecord(getState().records[0]?.id),
+    'edit-11': () => actSelectRecord(getState().records[1]?.id),
+    'edit-12': () => actSelectRecord(getState().records[2]?.id),
+    'edit-13': () => actSelectRecord(getState().records[3]?.id),
+    'close-14': () => actCancelEdit(),
     'pause-15': () => {},
-    'edit-details-16': () => openEditor(state.selectedRecordId ?? getState().records[0]?.id),
+    'edit-details-16': () =>
+      actSelectRecord(state.selectedRecordId ?? getState().records[0]?.id),
   };
 
   const pipelineBoardActions: Partial<
@@ -92,17 +94,17 @@ export default function App() {
     'menu-2': () => {},
     'notifications-3': () => {},
     'account-circle-4': () => {},
-    'create-record-5': () => openEditor(),
+    'create-record-5': () => actCreateRecord(),
     'filter-6': () => {},
     'sort-7': () => {},
     'more-horiz-8': () => {},
-    'edit-9': () => openEditor('rec-001'),
+    'edit-9': () => actSelectRecord('rec-001'),
     'more-horiz-10': () => {},
-    'edit-11': () => openEditor('rec-002'),
+    'edit-11': () => actSelectRecord('rec-002'),
     'more-horiz-12': () => {},
-    'edit-13': () => openEditor('rec-003'),
+    'edit-13': () => actSelectRecord('rec-003'),
     'more-horiz-14': () => {},
-    'edit-15': () => openEditor('rec-004'),
+    'edit-15': () => actSelectRecord('rec-004'),
     'more-horiz-16': () => {},
   };
 
@@ -114,11 +116,11 @@ export default function App() {
     'menu-2': () => {},
     'notifications-3': () => {},
     'account-circle-4': () => {},
-    'create-record-5': () => openEditor(),
+    'create-record-5': () => actCreateRecord(),
     'filter-6': () => {},
     'export-summary-7': () => {},
     'view-all-8': () => navigateTo('record-operations'),
-    'investigate-9': () => openEditor('rec-001'),
+    'investigate-9': () => actSelectRecord('rec-001'),
     'schedule-now-10': () => {},
   };
 
@@ -127,16 +129,10 @@ export default function App() {
   > = {
     ...navActions,
     'support-docs-1': () => {},
-    'cancel-2': () => closeEditor(),
-    'save-record-3': (e) => {
-      e?.preventDefault?.();
-      saveRecord();
-    },
-    'cancel-4': () => closeEditor(),
-    'save-record-5': (e) => {
-      e?.preventDefault?.();
-      saveRecord();
-    },
+    'cancel-2': () => actCancelEdit(),
+    'save-record-3': (e) => actSaveRecord(e),
+    'cancel-4': () => actCancelEdit(),
+    'save-record-5': (e) => actSaveRecord(e),
   };
 
   return (

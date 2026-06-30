@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import {
   bootstrap,
   closeEditor,
+  getState,
   navigateTo,
   openEditor,
   refreshData,
@@ -57,8 +58,8 @@ export default function App() {
     'record-operations-1': () => navigateTo('record-operations'),
     'pipeline-board-2': () => navigateTo('pipeline-board'),
     'insights-3': () => navigateTo('insights'),
-    'settings-4': () => navigateTo('record-operations'),
-    'system-logs-5': () => navigateTo('record-operations'),
+    'settings-4': () => navigateTo('settings'),
+    'system-logs-5': () => navigateTo('system-logs'),
   } as const;
 
   const recordOperationsActions: Partial<
@@ -74,13 +75,13 @@ export default function App() {
     'date-last-7-days-7': () => {},
     'chevron-left-8': () => {},
     'chevron-right-9': () => {},
-    'edit-10': () => openEditor('rec-001'),
-    'edit-11': () => openEditor('rec-002'),
-    'edit-12': () => openEditor('rec-003'),
-    'edit-13': () => openEditor('rec-004'),
+    'edit-10': () => openEditor(getState().records[0]?.id),
+    'edit-11': () => openEditor(getState().records[1]?.id),
+    'edit-12': () => openEditor(getState().records[2]?.id),
+    'edit-13': () => openEditor(getState().records[3]?.id),
     'close-14': () => closeEditor(),
     'pause-15': () => {},
-    'edit-details-16': () => openEditor(state.selectedRecordId ?? 'rec-001'),
+    'edit-details-16': () => openEditor(state.selectedRecordId ?? getState().records[0]?.id),
   };
 
   const pipelineBoardActions: Partial<
@@ -155,6 +156,21 @@ export default function App() {
       )}
       {state.activeSurface === 'record-editor' && (
         <RecordEditorRuntimePingRootfix actions={editorActions} />
+      )}
+      {(state.activeSurface === 'settings' || state.activeSurface === 'system-logs') && (
+        <section className="p-lg">
+          <h1 className="font-headline-sm text-on-surface">
+            {state.activeSurface === 'settings' ? 'Settings' : 'System Logs'}
+          </h1>
+          <p className="text-on-surface-variant mt-md">Placeholder for {state.activeSurface}.</p>
+          <button
+            type="button"
+            className="mt-md rounded bg-primary px-md py-sm text-on-primary"
+            onClick={() => navigateTo('record-operations')}
+          >
+            Back to Record Operations
+          </button>
+        </section>
       )}
     </div>
   );
